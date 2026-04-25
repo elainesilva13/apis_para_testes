@@ -3,16 +3,13 @@ export default async function handler(req, res) {
         const { idClient } = req.query;
 
         if (!idClient) {
-            return res.status(400).json({ error: 'Parâmetro "idClient" obrigatório não informado' });
+            return res.status(400).json({ error: 'Cliente inelegível' });
         }
 
-        const discount = (Math.random() * (6.99 - 1) + 1).toFixed(2);
-
-        if(discount >= 6){
-            return res.status(400).json({ error: 'Parâmetro "idClient" obrigatório não informado' });
-        }
+        // Generate a random decimal value between 1.00 and 5.99 with 2 decimal places
+        const randomValue = (Math.random() * (5.99 - 1.00) + 1.00).toFixed(2);
         
-        return res.status(200).json({ discount: discount });
+        return res.status(200).json({ discount: parseFloat(randomValue) });
     } else {
         return res.status(405).json({ error: 'Method not allowed' });
     }
